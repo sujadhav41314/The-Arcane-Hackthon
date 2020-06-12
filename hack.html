@@ -1,0 +1,82 @@
+<html>
+<head>
+   <title>Hacthon</title>
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+   <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+   <script src="L.Map.Sync.js"></script>
+   <style>
+      html, body { width: 100%; height: 100%; margin: 0; }
+        #map {
+            margin-top: 20px;
+            height: 100%;
+            width: 48%;
+            margin-left: 20px;
+            float: left;
+        }
+        #mapA {
+            margin-top: 20px;
+            height: 100%;
+            width: 48%;
+            margin-right: 20px;  
+            float: right;
+        }
+        .button {
+            background-color: darkgreen;
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+		.header{
+			margin-top: 10px;
+		}
+        .here{
+            padding: 10px 24px;
+            margin-left: 400px;
+        }
+        .osm{
+            padding: 10px 24px;
+            margin-left: 800px;
+        }
+        
+   </style>
+</head>
+<body>
+    <div class="header"><button class="button here">Here Maps</button><button class="button osm">Open Street Maps</button></div>
+    <div id="map"></div>
+    <div id="mapA"></div>
+
+        <script type="text/javascript">
+
+            var here = {
+            apiKey:'6zWLuOVm6G3fnF9JAO9WgQgCAe1qDW_sPLmOSOuxWBE'
+            }
+
+            var style = 'normal.day';
+
+            var osm = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+
+            var hereTileUrl = `https://2.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/${style}/{z}/{x}/{y}/512/png8?apiKey=${here.apiKey}&ppi=320`;
+
+            var map = L.map('map', {
+                center: [41.442690, 2.187237],
+                zoom: 16,
+                layers: [L.tileLayer(hereTileUrl)]
+            });
+
+            var mapA = L.map('mapA', {
+                center: [41.442690, 2.187237],
+                zoom: 16,
+                layers: [L.tileLayer(osm)],
+                zoomControl: false
+            });
+
+            map.sync(mapA);
+
+        </script>
+</body>
+</html>
